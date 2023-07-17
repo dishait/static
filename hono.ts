@@ -22,7 +22,7 @@ app.use(
   // 压缩
   compress(),
   // 静态服务
-  serveStatic({ root: Deno.cwd() }),
+  serveStatic({ root: './' }),
 );
 
 Deno.serve(app.fetch);
