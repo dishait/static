@@ -1,11 +1,10 @@
 // 此模块仅用于 deno deploy
-import { Hono} from "https://deno.land/x/hono@v3.3.2/hono.ts";
+import { Hono } from "https://deno.land/x/hono@v3.10.0-rc.1/hono.ts";
 import {
   etag,
-  compress,
   serveStatic,
-} from "https://deno.land/x/hono@v3.3.2/middleware.ts";
-import cache from "./middlewares/cache.ts"
+} from "https://deno.land/x/hono@v3.10.0-rc.1/middleware.ts";
+import cache from "./middlewares/cache.ts";
 
 const app = new Hono();
 
@@ -15,10 +14,8 @@ app.use(
   cache(),
   // 协商缓存
   etag(),
-  // 压缩
-  compress(),
   // 静态服务
-  serveStatic({ root: './' }),
+  serveStatic({ root: "./" }),
 );
 
 Deno.serve(app.fetch);

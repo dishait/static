@@ -1,5 +1,5 @@
-import { Status } from "https://deno.land/std@0.195.0/http/http_status.ts";
-import { MiddlewareHandler } from "https://deno.land/x/hono@v3.3.2/types.ts";
+import { Status } from "https://deno.land/std@0.205.0/http/status.ts";
+import { MiddlewareHandler } from "https://deno.land/x/hono@v3.10.0-rc.1/types.ts";
 
 interface Options {
   cacheControl: string;

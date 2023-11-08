@@ -1,6 +1,6 @@
 {
-    "tasks": {
-        "start": "deno run --allow-net --allow-read hono.ts",
-        "release": "deno run --allow-read --allow-write --allow-env --allow-run https://deno.land/x/easy_std/scripts/release.ts"
-    }
+  "tasks": {
+    "start": "deno run --allow-net --allow-read hono.ts",
+    "release": "deno run --allow-read --allow-write --allow-env --allow-run https://deno.land/x/easy_std/scripts/release.ts"
+  }
 }
