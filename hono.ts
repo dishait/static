@@ -19,8 +19,11 @@ app.use(
     root: "./",
     // 支持 vitepress 等静态站点
     rewriteRequestPath(path) {
-      if (path === "/" || path.includes(".")) {
+      if (path.includes(".")) {
         return path;
+      }
+      if (path.endsWith("/")) {
+        return path + "index.html";
       }
       return path + ".html";
     },
