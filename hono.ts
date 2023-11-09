@@ -15,7 +15,16 @@ app.use(
   // 协商缓存
   etag(),
   // 静态服务
-  serveStatic({ root: "./" }),
+  serveStatic({
+    root: "./",
+    // 支持 vitepress 等静态站点
+    rewriteRequestPath(path) {
+      if (path === "/" || path.includes(".")) {
+        return path;
+      }
+      return path + ".html";
+    },
+  }),
 );
 
 Deno.serve(app.fetch);
