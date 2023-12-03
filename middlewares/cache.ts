@@ -1,5 +1,5 @@
-import { Status } from "https://deno.land/std@0.205.0/http/status.ts";
-import { MiddlewareHandler } from "https://deno.land/x/hono@v3.10.0-rc.1/types.ts";
+import { STATUS_CODE } from "https://deno.land/std@0.208.0/http/status.ts";
+import { MiddlewareHandler } from "https://deno.land/x/hono@v3.10.4/types.ts";
 
 interface Options {
   cacheControl: string;
@@ -12,7 +12,7 @@ export default function cache(
 ): MiddlewareHandler {
   return async function (c, next) {
     await next();
-    if (c.res.status === Status.OK) {
+    if (c.res.status === STATUS_CODE.OK) {
       c.res.headers.set("Cache-Control", options.cacheControl);
     }
   };
