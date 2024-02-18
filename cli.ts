@@ -16,5 +16,5 @@ if (import.meta.main) {
     })
     .action((options) => {
       useStaticServer(options);
-    });
+    }).parse(Deno.args);
 }
