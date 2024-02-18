@@ -22,8 +22,9 @@ export const defaultOptions: Options = {
   root: "./",
 };
 
-export function useStaticServer(options: Options = defaultOptions) {
-  Object.assign(options, defaultOptions);
+export function useStaticServer(options: Options = {}) {
+  const { mode = defaultOptions.mode, root = defaultOptions.root } = options;
+
   const app = new Hono();
 
   const presetMiddlewares = [
@@ -33,13 +34,13 @@ export function useStaticServer(options: Options = defaultOptions) {
     etag(),
   ];
 
-  if (options.mode === "ssg") {
+  if (mode === "ssg") {
     app.use(
       "*",
       ...presetMiddlewares,
       // 静态服务
       serveStatic({
-        root: options.root,
+        root,
         // 支持 vitepress 等静态站点
         rewriteRequestPath(path) {
           if (path.includes(".")) {
@@ -54,32 +55,29 @@ export function useStaticServer(options: Options = defaultOptions) {
     );
   }
 
-  if (options.mode === "fallback") {
+  if (mode === "fallback") {
     app.use(
       "*",
       ...presetMiddlewares,
       // 静态服务
       serveStatic({
-        root: options.root,
+        root,
       }),
     );
   }
 
-  if (options.mode === "spa") {
+  if (mode === "spa") {
     app.use(
       "*",
       ...presetMiddlewares,
       // 静态服务
       serveStatic({
-        root: options.root,
+        root,
         rewriteRequestPath(path) {
           if (path.includes(".")) {
             return path;
           }
-          if (path.endsWith("index.html")) {
-            return path;
-          }
-          return path + "index.html";
+          return "index.html";
         },
       }),
     );
