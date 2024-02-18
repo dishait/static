@@ -14,6 +14,9 @@ if (import.meta.main) {
     .option("-r --root <string>", "root", {
       default: "./",
     })
+    .option("-f --forceCache", "with forceCache", {
+      default: false as boolean,
+    })
     .action((options) => {
       useStaticServer(options);
     }).parse(Deno.args);

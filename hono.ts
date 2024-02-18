@@ -5,6 +5,7 @@ import {
   serveStatic,
 } from "https://deno.land/x/hono@v4.0.4/middleware.ts";
 import cache from "./middlewares/cache.ts";
+import { MiddlewareHandler } from "https://deno.land/x/hono@v4.0.4/types.ts";
 
 export interface Options {
   /**
@@ -15,24 +16,33 @@ export interface Options {
    * @default './'
    */
   root?: string;
+  /**
+   * @default false
+   */
+  forceCache?: boolean;
 }
 
 export const defaultOptions: Options = {
   mode: "ssg",
   root: "./",
+  forceCache: false,
 };
 
 export function useStaticServer(options: Options = {}) {
-  const { mode = defaultOptions.mode, root = defaultOptions.root } = options;
+  const {
+    mode = defaultOptions.mode,
+    root = defaultOptions.root,
+    forceCache = defaultOptions.forceCache,
+  } = options;
 
   const app = new Hono();
 
-  const presetMiddlewares = [
-    // 强制缓存
-    cache(),
-    // 协商缓存
-    etag(),
-  ];
+  const presetMiddlewares: MiddlewareHandler[] = [];
+  if (forceCache) {
+    presetMiddlewares.push(cache());
+  }
+  // 协商缓存
+  presetMiddlewares.push(etag());
 
   if (mode === "ssg") {
     app.use(
@@ -87,5 +97,8 @@ export function useStaticServer(options: Options = {}) {
 }
 
 if (import.meta.main) {
-  useStaticServer();
+  // 开启强制缓存
+  useStaticServer({
+    forceCache: true,
+  });
 }
