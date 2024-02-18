@@ -1,0 +1,20 @@
+import { version } from "./version.ts";
+import { useStaticServer } from "./hono.ts";
+import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/command.ts";
+import { EnumType } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/types/enum.ts";
+
+if (import.meta.main) {
+  const modes = new EnumType(["ssg", "spa", "fallback"]);
+  new Command()
+    .name("static")
+    .version(version)
+    .type("mode", modes).option("-m --mode <mode:mode>", "static mode", {
+      default: "ssg" as const,
+    })
+    .option("-r --root <string>", "root", {
+      default: "./",
+    })
+    .action((options) => {
+      useStaticServer(options);
+    });
+}
