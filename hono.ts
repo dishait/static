@@ -1,9 +1,9 @@
 // 此模块仅用于 deno deploy
-import { Hono } from "https://deno.land/x/hono@v3.10.4/hono.ts";
+import { Hono } from "https://deno.land/x/hono@v4.0.4/hono.ts";
 import {
   etag,
   serveStatic,
-} from "https://deno.land/x/hono@v3.10.4/middleware.ts";
+} from "https://deno.land/x/hono@v4.0.4/middleware.ts";
 import cache from "./middlewares/cache.ts";
 
 const app = new Hono();
