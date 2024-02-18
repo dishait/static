@@ -4,7 +4,8 @@ import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/command.
 import { EnumType } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/types/enum.ts";
 
 if (import.meta.main) {
-  const modes = new EnumType(["ssg", "spa", "fallback"]);
+  const modes = new EnumType(["ssg", "spa", "fallback", "nuxt-ssg"]);
+
   new Command()
     .name("static")
     .version(version)
