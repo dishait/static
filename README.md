@@ -4,6 +4,14 @@
 
 <br />
 
+## cli
+
+```shell
+deno install --allow-net --allow-read -rfn static ./cli.ts
+```
+
+<br />
+
 ## License
 
 Made with [markthree](https://github.com/markthree)
