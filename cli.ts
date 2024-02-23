@@ -1,5 +1,5 @@
 import { version } from "./version.ts";
-import { useStaticServer } from "./hono.ts";
+import { useStaticServer } from "./mod.ts";
 import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/command.ts";
 import { EnumType } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/types/enum.ts";
 
