@@ -23,6 +23,7 @@ export interface Options {
    * @default false
    */
   forceCache?: boolean;
+  port?: number;
 }
 
 export const defaultOptions: Options = {
@@ -33,6 +34,7 @@ export const defaultOptions: Options = {
 
 export async function useStaticServer(options: Options = {}) {
   const {
+    port,
     mode = defaultOptions.mode,
     root = defaultOptions.root,
     forceCache = defaultOptions.forceCache,
@@ -97,7 +99,7 @@ export async function useStaticServer(options: Options = {}) {
     });
   }
 
-  Deno.serve(app.fetch);
+  Deno.serve({ port }, app.fetch);
 
   function use(middleware: MiddlewareHandler) {
     app.use("*", middleware);
