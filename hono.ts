@@ -1,14 +1,14 @@
 // 此模块仅用于 deno deploy
 import { slash } from "https://deno.land/x/easy_std@v0.8.0/src/path.ts";
-import { walk } from "https://deno.land/std@0.216.0/fs/walk.ts";
-import { relative } from "https://deno.land/std@0.216.0/path/relative.ts";
-import { Hono } from "https://deno.land/x/hono@v4.0.4/hono.ts";
+import { walk } from "https://deno.land/std@0.217.0/fs/walk.ts";
+import { relative } from "https://deno.land/std@0.217.0/path/relative.ts";
+import { Hono } from "https://deno.land/x/hono@v4.0.7/hono.ts";
 import {
   etag,
   serveStatic,
-} from "https://deno.land/x/hono@v4.0.4/middleware.ts";
+} from "https://deno.land/x/hono@v4.0.7/middleware.ts";
 import cache from "./middlewares/cache.ts";
-import { MiddlewareHandler } from "https://deno.land/x/hono@v4.0.4/types.ts";
+import { MiddlewareHandler } from "https://deno.land/x/hono@v4.0.7/types.ts";
 
 export interface Options {
   /**
