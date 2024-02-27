@@ -24,6 +24,8 @@ export interface Options {
    */
   forceCache?: boolean;
   port?: number;
+  beforeMiddlewares?: MiddlewareHandler[];
+  afterMiddlewares?: MiddlewareHandler[];
 }
 
 export const defaultOptions: Options = {
@@ -41,6 +43,10 @@ export async function useStaticServer(options: Options = {}) {
   } = options;
 
   const app = new Hono();
+
+  options.beforeMiddlewares?.forEach((middleware) => {
+    use(middleware);
+  });
 
   if (forceCache) {
     // 强制缓存
@@ -98,6 +104,10 @@ export async function useStaticServer(options: Options = {}) {
       return "404.html";
     });
   }
+
+  options.afterMiddlewares?.forEach((middleware) => {
+    use(middleware);
+  });
 
   Deno.serve({ port }, app.fetch);
 
