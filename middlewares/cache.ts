@@ -7,13 +7,23 @@ interface Options {
   ignore?: (ctx: Context) => boolean | Promise<boolean>;
 }
 
+// 仅匹配具有哈希值的路径
+// 例如：/assets/index.825553e7.css
+// 例如：/assets/index.825553e7.js
+const hashReg = /.+\..+\..+/;
+
 const defaultOptions: Options = {
-  cacheControl: "max-age=3600",
+  // 默认 1 年的缓存时间
+  cacheControl: "public, max-age=31536000, immutable",
   ignore(ctx) {
     const url = ctx.req.url;
-    const mayBeFile = url.includes(".");
-    const isHtml = url.includes(".html");
-    return !mayBeFile || isHtml;
+
+    // 如果是 HTML 页面，则不缓存
+    const isHtml = url.endsWith(".html");
+    // 如果不是带 hash 的静态资源，则不缓存
+    const hasHash = hashReg.test(url);
+
+    return isHtml || !hasHash;
   },
 };
 
